@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.136
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotnetCoreLDAPAuth", "DotnetCoreLDAPAuth\DotnetCoreLDAPAuth.csproj", "{DDB8580A-BAAC-4495-901D-F5BECDC9F630}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LDAPAuth", "LDAPAuth\LDAPAuth.csproj", "{34827323-DA26-49EE-800E-C9B7D61CF212}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DDB8580A-BAAC-4495-901D-F5BECDC9F630}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DDB8580A-BAAC-4495-901D-F5BECDC9F630}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DDB8580A-BAAC-4495-901D-F5BECDC9F630}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DDB8580A-BAAC-4495-901D-F5BECDC9F630}.Release|Any CPU.Build.0 = Release|Any CPU
+		{34827323-DA26-49EE-800E-C9B7D61CF212}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{34827323-DA26-49EE-800E-C9B7D61CF212}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{34827323-DA26-49EE-800E-C9B7D61CF212}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{34827323-DA26-49EE-800E-C9B7D61CF212}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {834BFE4C-195A-40A5-9272-9203DD7F443D}
+	EndGlobalSection
+EndGlobal
