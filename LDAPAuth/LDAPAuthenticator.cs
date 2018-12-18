@@ -1,4 +1,5 @@
 ﻿using Novell.Directory.Ldap;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace LDAPAuth
@@ -51,6 +52,54 @@ namespace LDAPAuth
             }
 
             return null;
+        }
+
+        public List<LDAPUser> SearchUser(string domainName, string username, string password, string searchName)
+        {
+            var list = new List<LDAPUser>();
+
+            try
+            {
+                string userDn = $"{username}@{domainName}";
+
+                using (var connection = new LdapConnection { SecureSocketLayer = false })
+                {
+                    connection.Connect(domainName, LdapConnection.DEFAULT_PORT);
+                    connection.Bind(userDn, password);
+
+                    if (connection.Bound)
+                    {
+                        var searchBase = GetSearchBase(domainName);
+                        var searchFilter = string.Format("(&(objectClass=user)(objectClass=person)(displayName=*{0}*))", searchName);
+
+                        var result = connection.Search(searchBase, LdapConnection.SCOPE_SUB, searchFilter, new[] { MemberOfAttribute, DisplayNameAttribute, SAMAccountNameAttribute }, false,
+                            new LdapSearchConstraints(0, 0, 0, 100, true, 10, null, 10));
+
+                        while (result.HasMore())
+                        {
+                            var user = result.Next();
+                            var displayName = user.getAttribute(DisplayNameAttribute).StringValue;
+                            var accountName = user.getAttribute(SAMAccountNameAttribute).StringValue;
+                            var memberOf = user.getAttribute(MemberOfAttribute)?.StringValueArray?.SelectMany(x => x.Split(',').Where(w => w.StartsWith("CN=")).Select(s => s.Substring(3)));
+
+                            var luser = new LDAPUser
+                            {
+                                AccountName = accountName,
+                                DisplayName = displayName,
+                                MemberOf = memberOf ?? new List<string>()
+                            };
+
+                            list.Add(luser);
+                        }
+                    }
+                }
+            }
+            catch (LdapException)
+            {
+
+            }
+
+            return list;
         }
 
         private string GetSearchBase(string domainName)
