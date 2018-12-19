@@ -6,6 +6,7 @@ namespace LDAPAuth
     {
         public string DisplayName { get; set; }
         public string AccountName { get; set; }
+        public string Email { get; set; }
         public IEnumerable<string> MemberOf { get; set; }
     }
 }

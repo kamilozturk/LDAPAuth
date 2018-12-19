@@ -9,6 +9,7 @@ namespace LDAPAuth
         private const string MemberOfAttribute = "memberOf";
         private const string DisplayNameAttribute = "displayName";
         private const string SAMAccountNameAttribute = "sAMAccountName";
+        private const string MailAttribute = "mail";
 
         public LDAPUser ValidateUser(string domainName, string username, string password)
         {
@@ -72,14 +73,15 @@ namespace LDAPAuth
                         var searchBase = GetSearchBase(domainName);
                         var searchFilter = string.Format("(&(objectClass=user)(objectClass=person)(displayName=*{0}*))", searchName);
 
-                        var result = connection.Search(searchBase, LdapConnection.SCOPE_SUB, searchFilter, new[] { MemberOfAttribute, DisplayNameAttribute, SAMAccountNameAttribute }, false,
+                        var result = connection.Search(searchBase, LdapConnection.SCOPE_SUB, searchFilter, new[] { MemberOfAttribute, DisplayNameAttribute, SAMAccountNameAttribute, MailAttribute }, false,
                             new LdapSearchConstraints(0, 0, 0, 100, true, 10, null, 10));
 
                         while (result.HasMore())
                         {
                             var user = result.Next();
-                            var displayName = user.getAttribute(DisplayNameAttribute).StringValue;
-                            var accountName = user.getAttribute(SAMAccountNameAttribute).StringValue;
+                            var displayName = user.getAttribute(DisplayNameAttribute)?.StringValue;
+                            var accountName = user.getAttribute(SAMAccountNameAttribute)?.StringValue;
+                            var email = user.getAttribute(MailAttribute)?.StringValue;
                             var memberOf = user.getAttribute(MemberOfAttribute)?.StringValueArray?.SelectMany(x => x.Split(',').Where(w => w.StartsWith("CN=")).Select(s => s.Substring(3)));
 
                             var luser = new LDAPUser
