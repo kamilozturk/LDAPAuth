@@ -88,6 +88,7 @@ namespace LDAPAuth
                             {
                                 AccountName = accountName,
                                 DisplayName = displayName,
+                                Email = email,
                                 MemberOf = memberOf ?? new List<string>()
                             };
 

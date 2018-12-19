@@ -36,7 +36,7 @@ namespace DotnetCoreLDAPAuth
 
                 foreach (var item in list)
                 {
-                    Console.WriteLine($"{++i} Full Name: {item.DisplayName}");
+                    Console.WriteLine($"{++i} Full Name: {item.DisplayName} ({item.Email})");
                 }
             }
         }
@@ -63,6 +63,7 @@ namespace DotnetCoreLDAPAuth
                 Console.WriteLine("User Authenticated!");
                 Console.WriteLine($"Full Name: {user.DisplayName}");
                 Console.WriteLine($"Account Name: {user.AccountName}");
+                Console.WriteLine($"Email: {user.Email}");
                 Console.WriteLine($"Member Of: {string.Join('\n', user.MemberOf)}");
             }
             else
