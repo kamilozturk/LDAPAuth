@@ -55,7 +55,7 @@ namespace LDAPAuth
             return null;
         }
 
-        public List<LDAPUser> SearchUser(string domainName, string username, string password, string searchName)
+        public List<LDAPUser> SearchUser(string domainName, string username, string password, string searchName, int maxResult)
         {
             var list = new List<LDAPUser>();
 
@@ -74,7 +74,7 @@ namespace LDAPAuth
                         var searchFilter = string.Format("(&(objectClass=user)(objectClass=person)(displayName=*{0}*))", searchName);
 
                         var result = connection.Search(searchBase, LdapConnection.SCOPE_SUB, searchFilter, new[] { MemberOfAttribute, DisplayNameAttribute, SAMAccountNameAttribute, MailAttribute }, false,
-                            new LdapSearchConstraints(0, 0, 0, 100, true, 10, null, 10));
+                            new LdapSearchConstraints(0, 0, 0, maxResult, true, maxResult, null, 0));
 
                         while (result.HasMore())
                         {

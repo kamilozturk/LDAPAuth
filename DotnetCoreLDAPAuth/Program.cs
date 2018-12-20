@@ -30,7 +30,7 @@ namespace DotnetCoreLDAPAuth
 
                 var auth = new LDAPAuthenticator();
 
-                var list = auth.SearchUser(domain, username, password, search);
+                var list = auth.SearchUser(domain, username, password, search, 100);
 
                 int i = 0;
 
